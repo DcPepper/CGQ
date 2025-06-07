@@ -1,0 +1,12 @@
+FROM postgres:17.5 AS builder
+RUN mkdir /app
+WORKDIR /app
+
+COPY pg_conf/ /etc/postgresql-common
+  
+# Stage 2: Production stage
+FROM postgres:17.5
+ 
+# Copy the Python dependencies from the builder stage
+COPY --from=builder /etc/postgresql-common /etc/postgresql-common
+ 

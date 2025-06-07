@@ -1,0 +1,51 @@
+services:
+  backend:
+    build:
+     context: ./
+     dockerfile: ./backend/compose/Dockerfile
+    ports:
+      - 8000:8000
+    environment:
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:?missing db password}
+      DATABASE_USER: ${POSTGRES_USER:-user}
+      DATABASE_NAME: cgq  
+    volumes:
+      - ./backend:/app/
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
+    depends_on:
+      - db
+    networks:
+      - cgq
+
+  db:
+    build:
+     context: ./
+     dockerfile: ./backend/compose/Dockerfile.db
+    restart: always
+    environment:  
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?missing db password}
+      POSTGRES_USER: ${POSTGRES_USER:-user}
+      POSTGRES_DB: cgq      
+    networks:
+      - cgq
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    networks:
+      - cgq
+
+networks:
+  cgq:
+
+volumes:
+  static_volume:
+  media_volume:
+  pg_data:
