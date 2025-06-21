@@ -25,19 +25,79 @@ class Geophraphy(models.Model):
         EUROPE: "EUROPE",
     }
     
+    name = models.CharField(max_length=50)
     iso = models.CharField(primary_key=True, max_length=4)
-    flag = models.TextField()
     capital = models.CharField(max_length=50)
+    flag = models.TextField()
     shape = models.TextField()
-    long = models.CharField(max_length=10)
-    lat = models.CharField(max_length=10)
+    long = models.FloatField()
+    lat = models.FloatField()
     population = models.IntegerField()
-    continent = models.CharField(choices=CONTINENTS)
+    area = models.IntegerField()
+    continent = models.CharField(choices=CONTINENTS, default=EUROPE)
     langue = models.TextField(validators=[validate_langue])
     
+    @classmethod
+    def get_main_fields(cls):
+        return [
+            "flag",
+            "name",
+            "shape",
+            "capital"
+        ]
         
+    @classmethod
+    def get_filter_fields(cls):
+        return [
+            "population",
+            "continent",
+            "area"
+        ]
+    
+    @classmethod
+    def get_other_quiz(cls):
+        return [
+            ("name", "population"),
+            ("name", "langue"),
+            ("name", "area")
+        ]
     
 
-    
+class Japanese(models.Model):
+    RATING = {
+        1: 1,
+        2: 2,
+        3: 3,
+        4: 4,
+        5: 5,
+    }
+    fr = models.TextField()
+    hiragana = models.TextField()
+    katakana = models.TextField()
+    kanji = models.TextField()
+    romaji = models.TextField()
+    difficulty = models.IntegerField(choices=RATING)
+    category = models.CharField(max_length=50)
 
-# Create your models here.
+    @classmethod
+    def get_main_fields(cls):
+        return [
+            "fr",
+            "hiragana",
+            "katakana",
+            "kanji",
+            "romaji"
+        ]
+        
+    @classmethod
+    def get_filter_fields(cls):
+        return [
+            "difficulty",
+            "category",
+        ]
+    
+    @classmethod
+    def get_other_quiz(cls):
+        return []
+    
+    # Create your models here.
