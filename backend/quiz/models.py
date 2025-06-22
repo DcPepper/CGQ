@@ -40,10 +40,10 @@ class Geophraphy(models.Model):
     @classmethod
     def get_main_fields(cls):
         return [
-            "flag",
-            "name",
-            "shape",
-            "capital"
+            'flag',
+            'name',
+            'shape',
+            'capital'
         ]
         
     @classmethod
