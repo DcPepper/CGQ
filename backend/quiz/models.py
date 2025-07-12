@@ -72,8 +72,7 @@ class Japanese(models.Model):
         5: 5,
     }
     fr = models.TextField()
-    hiragana = models.TextField()
-    katakana = models.TextField()
+    furigana = models.TextField()
     kanji = models.TextField()
     romaji = models.TextField()
     difficulty = models.IntegerField(choices=RATING)

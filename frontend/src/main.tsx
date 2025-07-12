@@ -23,6 +23,7 @@ let router = createBrowserRouter([
         path: "game/:q",
         element: <React.Suspense fallback={<>wait</>}><Game /></React.Suspense>,
         loader: async (params) => {
+          console.log(params)
           let res = await fetch(`http://localhost:8000/api/${params.params.q}/`);
           return res
         }

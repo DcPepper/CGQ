@@ -5,6 +5,7 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register(r'geo', views.GeophraphyView)
+router.register(r'jap', views.JapaneseView)
 
 urlpatterns = [
     path("", include(router.urls)),
