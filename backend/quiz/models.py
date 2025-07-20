@@ -74,8 +74,9 @@ class Japanese(models.Model):
     fr = models.TextField()
     furigana = models.TextField()
     kanji = models.TextField()
-    romaji = models.TextField()
-    difficulty = models.IntegerField(choices=RATING)
+    kunyomi = models.TextField()
+    onyomi = models.TextField()
+    difficulty = models.IntegerField(choices=RATING, default=1)
     category = models.CharField(max_length=50)
 
     @classmethod

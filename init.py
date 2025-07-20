@@ -19,10 +19,10 @@ for country in r.json():
     geo = Geophraphy(
 name=country["name"]["common"],
 iso=country["cca2"],
-capital=country["capital"][0],
+capital=country["capital"][0] if len(country["capital"]) > 0 else "",
 population=country["population"],
 area=round(country["area"]),
-langue=list(country['languages'].values())[0],
+langue="-".join([*country['languages'].values()]),
 continent=country["continents"][0],
 lat=country["latlng"][0],
 long=country["latlng"][1],
